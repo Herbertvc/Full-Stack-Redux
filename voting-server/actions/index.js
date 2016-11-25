@@ -12,3 +12,14 @@ export function next(state) {
     entries: entries.skip(2)
   });
 }
+
+// Go to the path ['vote', 'tally', entry], if the key is missing create a new map this place; if the value at the end is missing initialize with 0.
+export function vote(state, entry) {
+  return state.updateIn({
+    ['vote', 'tally', entry],
+    0,
+    function (tally) {
+      return tally + 1;
+    }
+  })
+}
