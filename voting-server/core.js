@@ -1,5 +1,7 @@
 var Immutable = requiere('immutable');
 
+export var INITIAL_STATE = Inmmutable.Map();
+
 export function setEntries(state, entries) {
   return state.set('entries', Inmmutable.List(entries));
 }
