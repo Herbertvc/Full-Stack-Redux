@@ -1,9 +1,9 @@
-var Immutable = requiere('immutable');
+var Immutable = require('immutable');
 
-export var INITIAL_STATE = Inmmutable.Map();
+exports.INITIAL_STATE = Immutable.Map();
 
-export function setEntries(state, entries) {
-  return state.set('entries', Inmmutable.List(entries));
+exports.setEntries = function setEntries(state, entries) {
+  return state.set('entries', Immutable.List(entries));
 }
 
 function getWinners(vote) {
@@ -19,7 +19,7 @@ function getWinners(vote) {
   else return [a,b];
 }
 
-export function next(state) {
+exports.next = function next(state) {
   var entries = state.get('entries').concat(getWinners(state.get('vote')));
 
   if(entries.size == 1) {
@@ -28,19 +28,20 @@ export function next(state) {
                 .set('winner', entries.first());
   } else {
     return state.merge({
-      vote: Inmmutable.Map({pair: entries.take(2)}),
+      vote: Immutable.Map({pair: entries.take(2)}),
       entries: entries.skip(2)
     });
   }
 }
 
 // Go to the path ['vote', 'tally', entry], if the key is missing create a new map this place; if the value at the end is missing initialize with 0.
-export function vote(state, entry) {
-  return state.updateIn({
-    ['vote', 'tally', entry],
+exports.vote = function vote(voteState, entry) {
+  return state.updateIn(
+    ['tally', entry],
     0,
     function (tally) {
       return tally + 1;
     }
-  })
+  )
 }
+

@@ -1,5 +1,5 @@
 {
-  "name": "voting-server",
+  "name": "voting-client",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "immutable": "^3.8.1",
-    "redux": "^3.6.0",
-    "socket.io": "^1.7.1"
+    "express": "^4.14.0",
+    "redux": "^3.6.0"
   }
 }
