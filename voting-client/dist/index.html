@@ -3,6 +3,17 @@
   <body>
     <div id="app">
       Hello World
+      <a id="vote-option" href="#">Click here!</a>
     </div>
   </body>
+  <script src="/jquery/jquery.js"></script>
+  <script>
+      $('#vote-option').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+          url: '/vote',
+          method: 'POST'
+        })
+      })
+    </script>
 </html>
