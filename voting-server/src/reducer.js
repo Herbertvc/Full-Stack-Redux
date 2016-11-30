@@ -15,8 +15,11 @@ module.exports = function (state, action) {
     case 'NEXT':
       return next(state);
     case 'VOTE':
-      return state.update('vote', function(voteState) {
-        return vote(voteState, action.entry);
+      var _state = Object.assign({}, state);
+      var _vote = vote(_state.vote, action.entry);
+
+      return Object.assign({}, state, {
+        vote: _vote,
       });
   }
 

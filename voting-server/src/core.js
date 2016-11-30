@@ -1,46 +1,78 @@
-var Immutable = require('immutable');
-
-exports.INITIAL_STATE = Immutable.Map();
+exports.INITIAL_STATE = {};
 
 exports.setEntries = function setEntries(state, entries) {
-  return state.set('entries', Immutable.List(entries));
+  return Object.assign({}, state, {
+    entries: entries,
+  });
 }
 
 function getWinners(vote) {
-  if (!vote) return [];
-  var pair = vote.get('pair');
-  var a = pair['a'];
-  var b = pair['b'];
-  var aVotes = vote.getIn(['tally', a], 0);
-  var bVotes = vote.getIn(['tally', b], 0);
+  if (!vote) {
+    return [];
+  }
 
-  if (aVotes > bVotes) return [a];
-  else if (aVotes < bVotes) return [b];
-  else return [a,b];
+  var pair = vote.pair;
+
+  pairKeys = Object.keys(pair);
+
+  var a = pair[pairKeys[0]];
+  var b = pair[pairKeys[1]];
+
+  var hasTally = vote.hasOwnProperty('tally');
+
+  var aVotes = 0;
+  var bVotes = 0;
+
+  if (hasTally) {
+    aVotes = vote.tally.hasOwnProperty(a) ? vote.tally[a] : 0;
+    bVotes = vote.tally.hasOwnProperty(b) ? vote.tally[b] : 0;
+  }
+
+  if (aVotes > bVotes) {
+    return [a];
+  } else if (aVotes < bVotes) {
+    return [b];
+  } else {
+    return [a, b];
+  }
 }
 
 exports.next = function next(state) {
-  var entries = state.get('entries').concat(getWinners(state.get('vote')));
+  var entries = state.entries.concat(getWinners(state.vote));
+  var _state = Object.assign({}, state);
 
-  if(entries.size == 1) {
-    return state.remove('vote')
-                .remove('entriies')
-                .set('winner', entries.first());
+  if(entries.length === 1) {
+    delete _state.vote;
+    delete _state.entries;
+    _state.winner = entries[0];
+
+    return _state;
   } else {
-    return state.merge({
-      vote: Immutable.Map({pair: entries.take(2)}),
-      entries: entries.skip(2)
+    var pair = entries.splice(0, 2);
+
+    return Object.assign({}, {
+      vote: {
+        pair: pair,
+      },
+      entries: entries,
     });
   }
 }
 
-// Go to the path ['vote', 'tally', entry], if the key is missing create a new map this place; if the value at the end is missing initialize with 0.
 exports.vote = function vote(voteState, entry) {
-  return state.updateIn(
-    ['tally', entry],
-    0,
-    function (tally) {
-      return tally + 1;
-    }
-  )
+  var _voteState = Object.assign({}, voteState);
+
+  var hasTally = voteState.hasOwnProperty('tally');
+
+  if (!hasTally) {
+    _voteState.tally = {};
+  }
+
+  if (!_voteState.tally.hasOwnProperty(entry)) {
+    _voteState.tally[entry] = 0;
+  }
+
+  _voteState.tally[entry]++;
+
+  return _voteState;
 }

@@ -8,7 +8,7 @@ module.exports = function startServer(store) {
   });
 
   io.on('connection', function(socket) {
-    socket.emit('state', store.getState().toJS());
+    socket.emit('state', store.getState());
     socket.on('action', store.dispatch.bind(store));
   });
 }

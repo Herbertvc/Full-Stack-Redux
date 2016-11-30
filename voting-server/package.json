@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "immutable": "^3.8.1",
     "redux": "^3.6.0",
     "redux-node-logger": "^0.1.0",
     "socket.io": "^1.7.1"
