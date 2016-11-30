@@ -4,7 +4,11 @@ var next = actions.next;
 var vote = actions.vote;
 var INITIAL_STATE = actions.INITIAL_STATE;
 
-module.exports = function (state = INITIAL_STATE, action) {
+module.exports = function (state, action) {
+  if (typeof state === 'undefined') {
+    return INITIAL_STATE
+  }
+
   switch(action.type) {
     case 'SET_ENTRIES':
       return setEntries(state, action.entries);

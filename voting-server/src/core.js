@@ -44,4 +44,3 @@ exports.vote = function vote(voteState, entry) {
     }
   )
 }
-

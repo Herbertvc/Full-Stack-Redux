@@ -10,5 +10,3 @@ store.dispatch({
 });
 
 store.dispatch({type: 'NEXT'});
-
-console.log(store.getState());
