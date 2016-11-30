@@ -10,8 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "express-nunjucks": "^2.0.2",
     "jquery": "^3.1.1",
-    "redux": "^3.6.0"
+    "nunjucks": "^3.0.0",
+    "redux": "^3.6.0",
+    "socket.io-client": "^1.7.1"
   }
 }
