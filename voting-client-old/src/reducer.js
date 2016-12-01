@@ -30,12 +30,16 @@ function resetVote(state) {
   }
 }
 
-module.exports = function(state = {}, action) {
+module.exports = function(state, action) {
+  if (typeof state === 'undefined') {
+    return {};
+  }
+
   switch (action.type) {
-  case 'SET_STATE':
-    return resetVote(setState(state, action.state));
-  case 'VOTE':
-    return vote(state, action.entry);
+    case 'SET_STATE':
+      return resetVote(setState(state, action.state));
+    case 'VOTE':
+      return vote(state, action.entry);
   }
   return state;
 }

@@ -19,9 +19,9 @@ var createStoreWithMiddleware = applyMiddleware(
 var store = createStoreWithMiddleware(reducer);
 
 store.dispatch({
-    'meta': {'remote': true},
-    'type': 'NEXT',
-  });
+  'meta': {'remote': true},
+  'type': 'NEXT',
+});
 
 var app = express();
 app.set('views', __dirname + '/dist');
@@ -29,27 +29,27 @@ app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.use(bodyParser.json());
 
 var njk = expressNunjucks(app, {
-    watch: true,
-    noCache: true
+  watch: true,
+  noCache: true
 });
 
 socket.on('state', function(state) {
-    store.dispatch(setState(state));
-  }
-);
+  store.dispatch({
+    'state': state,
+    'type': 'SET_STATE',
+  });
+});
 
 app.get('/', function(req, res) {
-  // Show the entries.
-  res.render('index', {"entries": store.getState().vote.pair});
-})
+  res.render('index', { entries: store.getState().vote.pair });
+});
 
 app.post('/vote', function(req, res) {
-  // Execute the vote for the entry selected;
   var option = req.body.option;
   store.dispatch(vote(option));
   res.send('Render comments');
-})
+});
 
 app.listen(4000, function() {
   console.log('Server up and ready');
-})
+});
