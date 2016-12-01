@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "watchify src/js/index.js -d -o public/javascripts/app.bundle.js -v --poll",
+    "build": "browserify src/js/index.js -o public/javascripts/app.bundle.js "
   },
   "dependencies": {
     "body-parser": "~1.15.2",
@@ -17,7 +19,6 @@
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
     "serve-favicon": "~2.3.0",
-    "socket.io-client": "^1.7.1",
-    "webpack": "^1.13.3"
+    "socket.io-client": "^1.7.1"
   }
 }
