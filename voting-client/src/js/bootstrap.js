@@ -9,23 +9,17 @@ var logger = createLogger();
 
 var reducer = require('./rootReducer');
 
+var votes = require('./votes/index');
+
 module.exports = (function () {
-  var createStoreWithMiddleware = applyMiddleware(
-    logger,
-    remoteActionMiddleware(socket)
-  )(createStore);
+  var store = createStore(
+    reducer,
+    applyMiddleware(logger, remoteActionMiddleware(socket))
+  );
 
-  var store = createStoreWithMiddleware(reducer);
-
-  store.dispatch({
-    'meta': {'remote': true},
-    'type': 'NEXT',
-  });
+  store.dispatch(votes.actions.next());
 
   socket.on('state', function(state) {
-    store.dispatch({
-      'state': state,
-      'type': 'SET_STATE',
-    });
+    store.dispatch(votes.actions.setState(state));
   });
 }());

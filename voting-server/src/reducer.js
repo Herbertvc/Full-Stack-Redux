@@ -10,13 +10,13 @@ module.exports = function (state, action) {
   }
 
   switch(action.type) {
-    case 'SET_ENTRIES':
+    case 'votes/SET_ENTRIES':
       return setEntries(state, action.entries);
-    case 'NEXT':
+    case 'votes/NEXT':
       return next(state);
-    case 'VOTE':
+    case 'votes/VOTE':
       var _state = Object.assign({}, state);
-      var _vote = vote(_state.vote, action.entry);
+      var _vote = vote(_state.votes, action.entry);
 
       return Object.assign({}, state, {
         vote: _vote,

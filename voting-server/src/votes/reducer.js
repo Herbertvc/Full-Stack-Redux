@@ -1,31 +1,28 @@
-exports.INITIAL_STATE = {};
+var t = require('./actionTypes');
+var entries = require('../entries/index');
 
-exports.setEntries = function setEntries(state, entries) {
-  return Object.assign({}, state, {
-    entries: entries,
-  });
-}
+var initialState = {};
 
-function getWinners(votes) {
+function getWinners(state) {
   if (!votes) {
     return [];
   }
 
-  var pair = votes.pair;
+  var pair = state.pair;
 
-  pairKeys = Object.keys(pair);
+  var pairKeys = Object.keys(pair);
 
   var a = pair[pairKeys[0]];
   var b = pair[pairKeys[1]];
 
-  var hasTally = votes.hasOwnProperty('tally');
+  var hasTally = state.hasOwnProperty('tally');
 
   var aVotes = 0;
   var bVotes = 0;
 
   if (hasTally) {
-    aVotes = votes.tally.hasOwnProperty(a) ? votes.tally[a] : 0;
-    bVotes = votes.tally.hasOwnProperty(b) ? votes.tally[b] : 0;
+    aVotes = state.tally.hasOwnProperty(a) ? state.tally[a] : 0;
+    bVotes = state.tally.hasOwnProperty(b) ? state.tally[b] : 0;
   }
 
   if (aVotes > bVotes) {
@@ -37,8 +34,8 @@ function getWinners(votes) {
   }
 }
 
-exports.next = function next(state) {
-  var entries = state.entries.concat(getWinners(state.votes));
+function next(state) {
+  var entries = state.entries.concat(getWinners(state));
   var _state = Object.assign({}, state);
 
   if(entries.length === 1) {
@@ -75,4 +72,20 @@ exports.vote = function vote(votes, entry) {
   _votes.tally[entry]++;
 
   return _votes;
+}
+
+
+module.exports = function (state, action) {
+  if (typeof state === 'undefined') {
+    return initialState;
+  }
+
+  switch (action.type) {
+    case t.NEXT:
+      return next(state);
+    case t.VOTE:
+      return Object.assign({}, vote(state, action.entry));
+  }
+
+  return state;
 }
