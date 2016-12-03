@@ -1,7 +1,7 @@
 var createStore = require('redux').createStore;
 var applyMiddleware = require('redux').applyMiddleware;
 var createLogger = require('redux-node-logger');
-var reducer = require('./reducer');
+var reducer = require('./rootReducer');
 
 var logger = createLogger();
 

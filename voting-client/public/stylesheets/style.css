@@ -1,8 +1,13 @@
 body {
+  font-size: 14px;
+  font-family: GillSans, Calibri, Trebuchet, sans-serif;
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+.tile {
+  background-color: #26a69a;
+  font-size: 24px;
+  font-weight: 300;
+  height: 200px;
+  width: 100%;
 }

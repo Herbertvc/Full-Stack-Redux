@@ -1,11 +1,13 @@
 var t = require('./actionTypes');
 
-exports.set = function set(entries) {
+var set = function set(entries) {
   return {
     type: t.SET,
     entries: entries,
   };
 }
+
+exports.set = set;
 
 module.exports = {
   set: set,

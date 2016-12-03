@@ -1,19 +1,15 @@
 var t = require('./actionTypes');
 
-exports.vote = function vote(entry) {
+var vote = function vote(entry) {
   return {
+    meta: {'remote': true},
     type: t.VOTE,
     entry: entry,
   };
 }
 
-exports.next = function next() {
-  return {
-    type: t.NEXT,
-  };
-}
+exports.vote = vote;
 
 module.exports = {
   vote: vote,
-  next: next,
 };

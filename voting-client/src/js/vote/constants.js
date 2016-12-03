@@ -1,4 +1,4 @@
-var NAME = 'votes';
+var NAME = 'vote';
 
 module.exports = {
   NAME: NAME,

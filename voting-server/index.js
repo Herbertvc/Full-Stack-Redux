@@ -1,10 +1,8 @@
 var makeStore = require('./src/store');
 var startServer = require('./src/server');
+var entries = require('./src/entries/index');
 
 var store = makeStore();
 startServer(store);
 
-store.dispatch({
-  type: 'votes/SET_ENTRIES',
-  entries: require('./entries.json'),
-});
+store.dispatch(entries.actions.set(require('./entries.json')));

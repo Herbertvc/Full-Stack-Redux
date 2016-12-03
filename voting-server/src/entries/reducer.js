@@ -14,7 +14,7 @@ module.exports = function (state, action) {
   switch (action.type) {
     case t.SET:
       return set(action.entries);
+    default:
+      return state;
   }
-
-  return state;
 }

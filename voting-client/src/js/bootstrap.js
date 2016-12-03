@@ -1,5 +1,5 @@
 var remoteActionMiddleware = require('./middlewares/remoteActionMiddleware');
-var socket = require('socket.io-client')('http://192.168.12.41:8090');
+var socket = require('socket.io-client')('http://192.168.10.10:8090');
 
 var createStore = require('redux').createStore;
 var applyMiddleware = require('redux').applyMiddleware;
@@ -9,17 +9,19 @@ var logger = createLogger();
 
 var reducer = require('./rootReducer');
 
-var votes = require('./votes/index');
+var rootActions = require('./rootActions');
+
+var store = createStore(
+  reducer,
+  applyMiddleware(logger, remoteActionMiddleware(socket))
+);
 
 module.exports = (function () {
-  var store = createStore(
-    reducer,
-    applyMiddleware(logger, remoteActionMiddleware(socket))
-  );
-
-  store.dispatch(votes.actions.next());
-
   socket.on('state', function(state) {
-    store.dispatch(votes.actions.setState(state));
+    store.dispatch(rootActions.setState(state));
   });
+
+  store.dispatch(rootActions.next());
+
+  return store;
 }());
