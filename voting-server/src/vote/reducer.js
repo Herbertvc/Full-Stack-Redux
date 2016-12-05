@@ -3,7 +3,7 @@ var entries = require('../entries/index');
 
 var initialState = null;
 
-exports.vote = function vote(vote, entry) {
+function vote(vote, entry) {
   var _vote = Object.assign({}, vote);
 
   var hasTally = _vote.hasOwnProperty('tally');

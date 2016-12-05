@@ -6,8 +6,6 @@ var next = function next() {
   };
 }
 
-exports.next = next;
-
 module.exports = {
   next: next,
 };

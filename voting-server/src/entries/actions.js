@@ -7,8 +7,6 @@ var set = function set(entries) {
   };
 }
 
-exports.set = set;
-
 module.exports = {
   set: set,
 };

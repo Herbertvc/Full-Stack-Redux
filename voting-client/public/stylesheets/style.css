@@ -4,10 +4,10 @@ body {
   padding: 50px;
 }
 
-.tile {
-  background-color: #26a69a;
-  font-size: 24px;
-  font-weight: 300;
-  height: 200px;
-  width: 100%;
+.route-section {
+  visibility: hidden;
+}
+
+.route-section-title {
+  margin: 0 0 20px;
 }

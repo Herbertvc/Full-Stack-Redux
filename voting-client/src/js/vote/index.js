@@ -1,9 +1,9 @@
 var actions = require('./actions');
-var constants = require('./constants');
-var reducer = require('./reducer');
+var actionTypes = require('./actionTypes');
+var selectors = require('./selectors');
 
 module.exports = {
   actions: actions,
-  constants: constants,
-  reducer: reducer,
+  actionTypes: actionTypes,
+  selectors: selectors,
 };

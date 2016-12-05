@@ -7,8 +7,6 @@ var vote = function vote(entry) {
   };
 }
 
-exports.vote = vote;
-
 module.exports = {
   vote: vote,
 };

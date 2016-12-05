@@ -1,4 +1,4 @@
-var t = require('./rootActionTypes');
+var t = require('./actionTypes');
 
 var setState = function setState(state) {
   return {

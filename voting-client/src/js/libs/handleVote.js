@@ -1,16 +1,18 @@
 var jquery = require('jquery');
-var store = require('../bootstrap');
+var store = require('../bootstrap').store;
 var vote = require('../vote/index');
-var rootActions = require('../rootActions');
 
 module.exports = (function (handleVote) {
   handleVote(jquery, window, document);
 } (function ($, w, d) {
   $(function () {
-    var $votingButton = $('.js-voting-button');
+    var $votesMount = $('.js-votes-mount');
 
-    $votingButton.on('click', function () {
-      store.dispatch(rootActions.next());
-    });
+    if ($votesMount) {
+      $votesMount.on('click', '.js-voting-button', function () {
+        var entry = $(this).data('entry');
+        store.dispatch(vote.actions.vote(entry));
+      });
+    }
   });
 }));

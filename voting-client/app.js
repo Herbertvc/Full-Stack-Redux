@@ -21,7 +21,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/materialize', express.static(path.join(__dirname, '/node_modules/materialize-css/dist/')));
 
 app.use('/', index);
 app.use('/users', users);
