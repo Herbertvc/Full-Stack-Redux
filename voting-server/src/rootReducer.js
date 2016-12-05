@@ -1,10 +1,8 @@
-exports.INITIAL_STATE = {};
+var t = require('./rootActionTypes');
+var entries = require('./entries/index');
+var vote = require('./vote/index');
 
-exports.setEntries = function setEntries(state, entries) {
-  return Object.assign({}, state, {
-    entries: entries,
-  });
-}
+var initialState = {};
 
 function getWinners(vote) {
   if (!vote) {
@@ -37,13 +35,11 @@ function getWinners(vote) {
   }
 }
 
-exports.next = function next(state) {
+function next(state) {
   var entries = state.entries.concat(getWinners(state.vote));
   var _state = Object.assign({}, state);
 
-  if(entries.length === 1) {
-    delete _state.vote;
-    delete _state.entries;
+  if (entries.length === 1) {
     _state.winner = entries[0];
 
     return _state;
@@ -59,20 +55,16 @@ exports.next = function next(state) {
   }
 }
 
-exports.vote = function vote(voteState, entry) {
-  var _voteState = Object.assign({}, voteState);
+module.exports = function (state, action) {
+  var state = (typeof state !== 'undefined') ? state : initialState;
 
-  var hasTally = voteState.hasOwnProperty('tally');
-
-  if (!hasTally) {
-    _voteState.tally = {};
+  switch (action.type) {
+    case t.NEXT:
+      return next(state);
   }
 
-  if (!_voteState.tally.hasOwnProperty(entry)) {
-    _voteState.tally[entry] = 0;
-  }
-
-  _voteState.tally[entry]++;
-
-  return _voteState;
+  return {
+    [entries.constants.NAME]: entries.reducer(state.entries, action),
+    [vote.constants.NAME]: vote.reducer(state.vote, action),
+  };
 }

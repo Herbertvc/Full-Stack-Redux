@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title><%= title %></title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <ul>
+      <li><a href="#/home">#/home</a></li>
+      <li><a href="#/vote">#/vote</a></li>
+      <li><a href="#/results">#/results</a></li>
+    </ul>
+
+    <section class="route-section" data-route="home">
+      <h2 class="route-section-title">
+        VOTING APP
+      </h2>
+    </section>
+
+    <section class="route-section" data-route="vote">
+      <h2 class="route-section-title">
+        VOTE FOR YOUR FAVORITE MOVIE!
+      </h2>
+
+      <div class="js-votes-mount"></div>
+    </section>
+
+    <section class="route-section" data-route="results">
+      <h2 class="route-section-title">
+        CURRENT TALLY:
+      </h2>
+
+      <div class="js-results-mount"></div>
+    </section>
+
     <script src="/javascripts/app.bundle.js"></script>
   </body>
 </html>
